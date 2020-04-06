@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pingan.mapper.ApiDocMapper">
+
+    <select id="findById" resultType="com.pingan.entity.ApiDocDO">
+        SELECT
+        api.api_name,
+        api.module,
+        api.project_id,
+        api.api_desc,
+        api.api_request_body,
+        api.id,
+        api.other_info,
+        api.create_time,
+        api.update_time
+        FROM
+        api_doc_info as api
+        WHERE
+        id=#{id}
+    </select>
+
+    <select id="findByApiName" resultType="com.pingan.entity.ApiDocDO">
+        SELECT
+        api.api_name,
+        api.module,
+        api.project_id,
+        api.api_desc,
+        api.api_request_body,
+        api.id,
+        api.other_info,
+        api.create_time,
+        api.update_time
+        FROM
+        api_doc_info as api
+        WHERE
+        api.api_name=#{apiName}
+    </select>
+
+    <delete id="deleteApiDoc" >
+        delete from api_doc_info where id=#{id}
+    </delete>
+
+    <insert id="addApiDoc" parameterType="com.pingan.domain.ApiDocDTO">
+        insert into api_doc_info (api_name,module,project_id,api_desc,api_request_body,other_info,create_time,update_time)
+        values (#{apiName},#{module},#{projectId},#{apiDesc},#{apiRequestBody},#{otherInfo},now(),now())
+    </insert>
+
+</mapper>
