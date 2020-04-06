@@ -37,9 +37,8 @@ public class ApiDocController {
         this.apiDocService = apiDocService;
     }
 
-
-    @ApiOperation(value="创建一个接口文档", notes="验证")
-    @ApiImplicitParam( paramType = "query", name = "apiName", value = "获取接口参数模板", required = true, dataType = "long")
+    @ApiOperation(value="获取接口请求参数模板", notes="模板参数")
+    @ApiImplicitParam( paramType = "query", name = "apiName", value = "传入接口名称(地址)", required = true, dataType = "long",defaultValue = "/adminapi/examDetail.do")
     @RequestMapping(value = "/getApiDoc/{apiName}",method = {RequestMethod.GET,RequestMethod.POST})
     public JSONObject getApiDoc(@PathParam(value = "apiName") String apiName){
         ApiDocDO result = apiDocService.findByApiName(apiName);
@@ -58,6 +57,7 @@ public class ApiDocController {
             @ApiImplicitParam(paramType="query", name = "otherInfo", value = "预留字段暂时无用", required = false, dataType = "String")
     })
 //    @RequestBody @Valid ApiDocDTO apiDocDTO 后续带前端再增加
+    @ApiOperation(value="创建一个接口文档", notes="验证")
     @PostMapping(value = "/createApiDoc")
     public ResponseVO createApiDoc(@RequestBody String apiRequestBody,ApiDocDTO apiDocDTO){
         ResponseVO responseVO = new ResponseVO();
